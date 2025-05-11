@@ -1,0 +1,37 @@
+:root {
+    --padding-card: 10px;
+    --height-card: 90px;
+}
+
+.ExerciseCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    border-radius: var(--border-radius);
+
+    padding: var(--padding-card);
+
+    background-color: var(--color-ghost);
+    height: var(--height-card);
+}
+
+.ExerciseCard__title{
+    margin-right: 8px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ExerciseCard__header{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.ExerciseCard__items {
+    font-weight: 500;
+    font-size: 16px;
+}

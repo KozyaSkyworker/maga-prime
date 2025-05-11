@@ -9,9 +9,7 @@
     
     --border-color: #000;
     --border-radius: 8px;
-
-    --layout-padding: 5px 10px;
-
+    
     --color-text: #181818;
     --color-text-light: #fff;
 
@@ -35,16 +33,15 @@ body {
 
 h1 {
     font-size: 24px;
+    font-weight: 700;
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 h3 {
     font-size: 16px;
-}
-
-p {
-    font-size: 14px;
+    font-weight: 500;
 }

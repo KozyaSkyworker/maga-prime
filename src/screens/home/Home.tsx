@@ -1,27 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../../shared/routes";
-import { Button, Input } from "../../shared/ui";
+import { ExerciseList } from "../../widgets/exercise-list";
+
+import { DATA } from "./mock";
+
+import styles from "./Home.module.css";
 
 const Home = () => {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate(ROUTES.EXERCISE);
-  };
-
   return (
     <div>
-      Home
-      <Button onClick={handleClick}>click</Button>
-      <br />
-      <br />
-      <Input type="email" />
-      <br />
-      <br />
-      <Input type="password" />
-      <br />
-      <br />
-      <Input />
+      <h1>Задания</h1>
+      <ExerciseList items={DATA} className={styles.Home__list} />
     </div>
   );
 };

@@ -1,3 +1,7 @@
+:root {
+    --layout-padding: 5px 10px;
+}
+
 .Layout {
     padding: var(--layout-padding);
     background-color: var(--bg-color);

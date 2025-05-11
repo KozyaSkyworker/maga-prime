@@ -4,14 +4,20 @@ import classNames from "classnames";
 import styles from "./Button.module.css";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
+  children?: ReactNode;
+  text?: string;
   className?: string;
 }
 
-export const Button: FC<Props> = ({ className = "", children, ...props }) => {
+export const Button: FC<Props> = ({
+  className = "",
+  text,
+  children,
+  ...props
+}) => {
   return (
     <button className={classNames(styles.Button, className)} {...props}>
-      {children}
+      {children ?? text}
     </button>
   );
 };
