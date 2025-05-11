@@ -1,10 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./assets/styles/index.css";
-import App from "./App.tsx";
+import { RouterProvider } from "./providers/router-providers";
+
+// TODO:
+// иконки (внутри приложения)
+// alias
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <RouterProvider />
   </StrictMode>,
 );

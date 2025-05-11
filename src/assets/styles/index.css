@@ -1,13 +1,15 @@
 @import 'fonts.css';
 
 :root{
-    --screen-width: 320px;
-    --screen-height: 400px;
+    --screen-width: 400px;
+    --screen-height: 500px;
 
     --bg-color: #fff;
     
     --border-color: #000;
-    --border-raduis: 8px;
+    --border-radius: 8px;
+
+    --layout-padding: '5px 10px';
 }
 
 body {
@@ -15,4 +17,20 @@ body {
     height: var(--screen-height);
 
     font-family: 'Ubuntu', sans-serif;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+p {
+    font-size: 14px;
 }
