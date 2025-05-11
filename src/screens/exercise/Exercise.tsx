@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { DATA } from "../home/mock";
 
+import styles from "./Exercise.module.css";
+
 const Exercise = () => {
   const { id } = useParams();
 
@@ -8,7 +10,7 @@ const Exercise = () => {
 
   return (
     <div>
-      <h1>{item?.name}</h1>
+      <h1 className={styles.Exercise__title}>{item?.name}</h1>
       <p>
         Время в работе: <span>{item?.time_spent}</span>
       </p>
