@@ -18,7 +18,9 @@
     --color-primary: #7350F3;
     --color-new: #18DD43;
     --color-info: #267CFD;
-    --color-ghost: #fafafa;
+    --color-ghost: #f0f0f0;
+
+    --font-size-base: 14px;
 }
 
 body {
@@ -26,6 +28,9 @@ body {
     height: var(--screen-height);
 
     font-family: 'Ubuntu', sans-serif;
+
+    font-size: var(--font-size-base);
+    font-weight: 400;
 }
 
 h1 {
