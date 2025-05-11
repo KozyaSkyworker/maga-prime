@@ -1,8 +1,11 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
-import { ROUTES } from "../shared/routes";
-import { Layout } from "../widgets/layout";
+
 import { Home } from "../screens/home";
-import { Item } from "../screens/item";
+
+import { Layout } from "../widgets/layout";
+
+import { ROUTES } from "../shared/routes";
+import { Exercise } from "../screens/exercise";
 
 const routes: RouteObject[] = [
   {
@@ -14,7 +17,7 @@ const routes: RouteObject[] = [
       },
       {
         path: ROUTES.EXERCISE,
-        element: <Item />,
+        element: <Exercise />,
       },
     ],
   },

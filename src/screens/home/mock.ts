@@ -15,7 +15,7 @@ export const DATA: TExercise[] = [
   },
   {
     id: 3,
-    name: "Проверка знаний по физПроверка знаний по фике",
+    name: "Тест qweqwewqewqeqewqewqwqewqeqweqwewqewqeо мПроверка знаний по фатеТестиeqwewqewqewqeqwewqeqewqeрованиеТестированиематике знаний по физПроверка знаний по фике",
     started_at: "20.09.2026",
     time_spent: "45мин.",
   },
