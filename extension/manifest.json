@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Student Tracker",
+    "version": "1.0",
+    "description": "Предназначено для студентов и их преподавателй с целью улучшения дистанционного обучения",
+    "permissions": ["scripting", "activeTab"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+      
+    },
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": {
+        "16": "16.png",
+        "48": "48.png",
+        "128": "128.png"
+      }
+    }
+  }
+  
