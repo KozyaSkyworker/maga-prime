@@ -1,4 +1,6 @@
 .app {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
 }
 
 .app__line{

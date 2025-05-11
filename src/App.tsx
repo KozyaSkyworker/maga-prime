@@ -4,6 +4,7 @@ import styles from "./App.module.css";
 // иконки (внутри приложения)
 // шрифты
 // скругления
+// alias
 
 function App() {
   return (
