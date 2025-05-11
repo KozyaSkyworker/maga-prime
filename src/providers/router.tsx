@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { createHashRouter, RouteObject } from "react-router-dom";
 import { ROUTES } from "../shared/routes";
 import { Layout } from "../widgets/layout";
 import { Home } from "../screens/home";
@@ -6,7 +6,6 @@ import { Item } from "../screens/item";
 
 const routes: RouteObject[] = [
   {
-    path: ROUTES.HOME,
     element: <Layout />,
     children: [
       {
@@ -21,4 +20,4 @@ const routes: RouteObject[] = [
   },
 ];
 
-export const router = createBrowserRouter(routes);
+export const router = createHashRouter(routes);
