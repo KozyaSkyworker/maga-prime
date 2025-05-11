@@ -1,0 +1,12 @@
+.Button {
+    padding: 7px 15px;
+
+    color: var(--color-text-light);
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}

@@ -11,6 +11,14 @@
     --border-radius: 8px;
 
     --layout-padding: 5px 10px;
+
+    --color-text: #181818;
+    --color-text-light: #fff;
+
+    --color-primary: #7350F3;
+    --color-new: #18DD43;
+    --color-info: #267CFD;
+    --color-ghost: #fafafa;
 }
 
 body {

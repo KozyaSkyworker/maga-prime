@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../shared/routes";
+import { Button } from "../../shared/ui";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Home = () => {
   return (
     <div>
       Home
-      <button onClick={handleClick}>click</button>
+      <Button onClick={handleClick}>click</Button>
     </div>
   );
 };
