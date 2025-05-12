@@ -1,3 +1,36 @@
+.Exercise {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.Exercise__time-spent {
+    display: flex;
+    align-items: center;
+    gap: 0 8px;
+}
+
 .Exercise__title {
     word-break: break-word;
+}
+
+.Exercise__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.Exercise__medium {
+    font-weight: 500;
+}
+
+.Exercise__footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.Exercise__site {
+    display: flex;
+    align-items: center;
 }

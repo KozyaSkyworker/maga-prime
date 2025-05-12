@@ -1,0 +1,29 @@
+:root {
+    --bg-progress: #eee;
+    --height-progress: 8px;
+
+    --bg-percent-bad: rgb(216, 54, 54);
+    --bg-percent-normal: rgb(220, 220, 75);
+    --bg-percent-good: rgb(21, 187, 21);
+}
+
+.Progress,
+.Progress__percent {
+    height: var(--height-progress);
+    border-radius: var(--border-radius);
+}
+
+.Progress {
+    width: 100%;
+    background-color: var(--bg-progress);
+}
+
+.Progress__percent.bad {
+    background-color: var(--bg-percent-bad);
+}
+.Progress__percent.normal {
+    background-color: var(--bg-percent-normal);
+}
+.Progress__percent.good {
+    background-color: var(--bg-percent-good);
+}

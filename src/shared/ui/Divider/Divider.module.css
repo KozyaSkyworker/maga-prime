@@ -1,6 +1,5 @@
 :root{
     --bg-divider: #dddddd;
-    --margin-divider: 10px 0;
 }
 
 .Divider{
@@ -8,6 +7,4 @@
     height: 3px;
     background-color: var(--bg-divider);
     border-radius: var(--border-radius);
-
-    margin: var(--margin-divider);
 }

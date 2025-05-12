@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 
-import { ReactComponent as TimeIcon } from "../../assets/icons/time.svg";
+import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
+import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
 import { DATA } from "../home/mock";
 
-import { Divider } from "../../shared/ui";
+import { Button, Divider, Progress } from "../../shared/ui";
 
 import styles from "./Exercise.module.css";
 
@@ -13,30 +14,49 @@ const Exercise = () => {
 
   const item = DATA.find((itm) => itm.id === Number(id));
 
+  const PERCENT = 78;
+
   return (
-    <div>
+    <div className={styles.Exercise}>
       <h1 className={styles.Exercise__title}>{item?.name}</h1>
-      <p>
-        {<TimeIcon />} Время в работе: <span>{item?.time_spent}</span>
-      </p>
-      <div></div>
-      <div>
-        <p>
-          <span>78% ????</span> - релевантныйконтент
+      <div className={styles.Exercise__content}>
+        <p className={styles["Exercise__time-spent"]}>
+          {<ClockIcon />} Время в работе:{" "}
+          <span className={styles.Exercise__medium}>{item?.time_spent}</span>
         </p>
-        <p>
-          ???? До дедлайна: <span>2</span> дня
-        </p>
+        <Progress percent={77} />
+        <div>
+          <p>
+            Процент релавнтных сайтов -{" "}
+            <span className={styles.Exercise__medium}>{PERCENT}% </span>
+          </p>
+        </div>
+        <Divider />
+        <div>
+          <h2>Последние сайты:</h2>
+          <ul>
+            <li className={styles.Exercise__site}>
+              <CheckIcon />
+              first
+            </li>
+            <li className={styles.Exercise__site}>
+              <CheckIcon />
+              second seconds
+            </li>
+            <li className={styles.Exercise__site}>
+              <CheckIcon />
+              third third third third third
+            </li>
+            <li className={styles.Exercise__site}>
+              <CheckIcon />
+              fourth fourth fourth
+            </li>
+          </ul>
+        </div>
       </div>
-      <Divider />
-      <div>
-        <h2>Последние сайты:</h2>
-        <ul>
-          <li>first</li>
-          <li>second seconds</li>
-          <li>third third third third third</li>
-          <li>fourth fourth fourth</li>
-        </ul>
+      <div className={styles.Exercise__footer}>
+        <Button text="Начать/Закончить" />
+        <Button text="К полному отчету" />
       </div>
     </div>
   );
