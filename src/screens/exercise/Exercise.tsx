@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { DATA } from "../home/mock";
 
+import { Divider } from "../../shared/ui";
+
 import styles from "./Exercise.module.css";
 
 const Exercise = () => {
@@ -17,13 +19,13 @@ const Exercise = () => {
       <div></div>
       <div>
         <p>
-          <span>78% ????</span> - релевантный контент
+          <span>78% ????</span> - релевантныйконтент
         </p>
         <p>
           ???? До дедлайна: <span>2</span> дня
         </p>
       </div>
-      <div></div>
+      <Divider />
       <div>
         <h2>Последние сайты:</h2>
         <ul>
