@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
@@ -11,13 +11,21 @@ import styles from "./Exercise.module.css";
 
 const Exercise = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const item = DATA.find((itm) => itm.id === Number(id));
 
   const PERCENT = 78;
 
+  const handleClickNavigateBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.Exercise}>
+      <div>
+        <Button text="Назад" onClick={handleClickNavigateBack} />
+      </div>
       <h1 className={styles.Exercise__title}>{item?.name}</h1>
       <div className={styles.Exercise__content}>
         <p className={styles["Exercise__time-spent"]}>
