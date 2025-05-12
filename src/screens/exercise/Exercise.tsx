@@ -1,4 +1,7 @@
 import { useParams } from "react-router-dom";
+
+import { ReactComponent as TimeIcon } from "../../assets/icons/time.svg";
+
 import { DATA } from "../home/mock";
 
 import { Divider } from "../../shared/ui";
@@ -14,7 +17,7 @@ const Exercise = () => {
     <div>
       <h1 className={styles.Exercise__title}>{item?.name}</h1>
       <p>
-        Время в работе: <span>{item?.time_spent}</span>
+        {<TimeIcon />} Время в работе: <span>{item?.time_spent}</span>
       </p>
       <div></div>
       <div>
