@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
-import { DATA } from "../home/mock";
-
 import { Button, Divider, Progress } from "../../shared/ui";
+import { TExercise } from "../../shared/types";
 
 import styles from "./Exercise.module.css";
 
@@ -13,7 +13,21 @@ const Exercise = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const item = DATA.find((itm) => itm.id === Number(id));
+  const [exercise, setExercise] = useState<TExercise>();
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(`http://127.0.0.1:5000/exercises/${id}`, {
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      const data: TExercise = await response.json();
+      setExercise({ ...data });
+    };
+
+    getData();
+  }, []);
 
   const PERCENT = 78;
 
@@ -26,11 +40,13 @@ const Exercise = () => {
       <div>
         <Button text="Назад" onClick={handleClickNavigateBack} />
       </div>
-      <h1 className={styles.Exercise__title}>{item?.name}</h1>
+      <h1 className={styles.Exercise__title}>{exercise?.name}</h1>
       <div className={styles.Exercise__content}>
         <p className={styles["Exercise__time-spent"]}>
           {<ClockIcon />} Время в работе:{" "}
-          <span className={styles.Exercise__medium}>{item?.time_spent}</span>
+          <span className={styles.Exercise__medium}>
+            {exercise?.time_spent}
+          </span>
         </p>
         <Progress percent={77} />
         <div>
