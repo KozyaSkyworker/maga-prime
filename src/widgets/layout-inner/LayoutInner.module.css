@@ -1,0 +1,10 @@
+.LayoutInner {
+    display: flex;
+    flex-direction: column;
+
+    gap: 25px;
+}
+
+.LayoutInner__back{
+    max-width: max-content;
+}

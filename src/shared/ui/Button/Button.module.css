@@ -9,9 +9,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition: background 0.3s;
 }
 
-.Button:focus,
-.Button:hover {
+.Button_primary {
+    background-color: var(--color-primary);
+}
+.Button_primary:focus-visible,
+.Button_primary:hover {
+    box-shadow: 3px 3px var(--color-primary-shadow);
+}
+.Button_primary:active{
+    background-color:  var(--color-primary-shadow);
+}
+
+.Button_new {
+    background-color: var(--color-new);
+}
+.Button_new:focus-visible,
+.Button_new:hover {
+    box-shadow: 3px 3px var(--color-new-shadow);
+}
+.Button_new:active{
+    background-color:  var(--color-new-shadow);
+}
+
+.Button_info {
+    background-color: var(--color-info);
+}
+.Button_info:focus-visible,
+.Button_info:hover {
+    box-shadow: 3px 3px var(--color-info-shadow);
+}
+.Button_info:active{
+    background-color:  var(--color-info-shadow);
+}
+
+.Button_ghost {
+    background-color: transparent;
+}
+.Button_ghost:focus-visible {
     box-shadow: 3px 3px black;
 }
+
+
+
+

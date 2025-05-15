@@ -1,0 +1,12 @@
+.ExerciseForm {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.ExerciseForm__labelname {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}

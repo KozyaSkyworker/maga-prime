@@ -6,6 +6,7 @@ import "./assets/styles/index.css";
 
 // TODO:
 // alias / eslint antfu / stylistic / lint-staged
+// gap в index.css
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

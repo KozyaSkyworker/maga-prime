@@ -14,9 +14,14 @@
     --color-text-light: #fff;
 
     --color-primary: #7350F3;
+    --color-primary-shadow: #5434c9;
     --color-new: #18DD43;
+    --color-new-shadow: #0ea02d;
     --color-info: #267CFD;
+    --color-info-shadow: #0f55c0;
+    
     --color-ghost: #f0f0f0;
+  
 
     --font-size-base: 14px;
 

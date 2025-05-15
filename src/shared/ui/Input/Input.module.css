@@ -5,6 +5,7 @@
     background-color: var(--color-ghost);
     color: var(--color-text);
 
+    border: 1px solid transparent;
     border-radius: var(--border-radius);
 
     font-weight: 300;

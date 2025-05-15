@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
@@ -11,7 +11,6 @@ import styles from "./Exercise.module.css";
 
 const Exercise = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [exercise, setExercise] = useState<TExercise>();
 
@@ -31,15 +30,8 @@ const Exercise = () => {
 
   const PERCENT = 78;
 
-  const handleClickNavigateBack = () => {
-    navigate(-1);
-  };
-
   return (
     <div className={styles.Exercise}>
-      <div>
-        <Button text="Назад" onClick={handleClickNavigateBack} />
-      </div>
       <h1 className={styles.Exercise__title}>{exercise?.name}</h1>
       <div className={styles.Exercise__content}>
         <p className={styles["Exercise__time-spent"]}>
