@@ -34,6 +34,15 @@ const Home = () => {
       } catch (error) {
         console.log(error);
       } finally {
+        setExercises([
+          {
+            id: 1,
+            name: "blablabla",
+            started_at: "16.16.16",
+            time_spent: "7h 33m",
+          },
+        ]);
+        console.log("dvsdfkasdfsaf");
         setIsLoading(false);
       }
     };
