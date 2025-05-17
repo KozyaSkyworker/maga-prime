@@ -19,7 +19,7 @@ export const LayoutInner = () => {
         onClick={handleClickNavigateBack}
         className={styles.LayoutInner__back}
       />
-      <Suspense fallback={"Loading..."}>{<Outlet />}</Suspense>
+      <Suspense fallback={"Загрузка..."}>{<Outlet />}</Suspense>
     </div>
   );
 };

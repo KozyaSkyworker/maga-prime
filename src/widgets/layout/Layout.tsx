@@ -5,6 +5,6 @@ import styles from "./Layout.module.css";
 
 export const Layout = () => (
   <div className={styles.Layout}>
-    <Suspense fallback={"Loading..."}>{<Outlet />}</Suspense>
+    <Suspense fallback={"Загрузка..."}>{<Outlet />}</Suspense>
   </div>
 );

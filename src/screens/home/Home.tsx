@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 
 import { ReactComponent as SortIcon } from "../../assets/icons/sort.svg";
 
 import { ExerciseList } from "../../widgets/exercise-list";
 
+import { useFetchData } from "../../shared/lib";
 import { TExercise } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
@@ -14,41 +15,12 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   const [sort, setSort] = useState<"asc" | "desc">("asc");
-  const [isLoading, setIsLoading] = useState(false);
-  const [exercises, setExercises] = useState<TExercise[]>([]);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await fetch("http://127.0.0.1:5000/exercises", {
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-        const data: TExercise[] = await response.json();
-        setExercises([...data]);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setExercises([
-          {
-            id: 1,
-            name: "blablabla",
-            started_at: "16.16.16",
-            time_spent: "7h 33m",
-          },
-        ]);
-        console.log("dvsdfkasdfsaf");
-        setIsLoading(false);
-      }
-    };
-
-    getData();
-  }, []);
+  const { data, isLoading } = useFetchData<TExercise[]>({
+    url: "http://127.0.0.1:5000/exercises",
+  });
 
   const handleChangeSort = () => {
     setSort((prev) => (prev === "asc" ? "desc" : "asc"));
@@ -78,7 +50,7 @@ const Home = () => {
         <Button text="Создать" variant="new" onClick={handleClickRedirectBtn} />
       </div>
       {isLoading && "Загрузка..."}
-      {!isLoading && <ExerciseList items={exercises} />}
+      {!isLoading && data && <ExerciseList items={data} />}
     </div>
   );
 };

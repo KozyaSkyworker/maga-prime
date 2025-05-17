@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
@@ -8,33 +7,14 @@ import { Button, Divider, Progress } from "../../shared/ui";
 import { TExercise } from "../../shared/types";
 
 import styles from "./Exercise.module.css";
+import { useFetchData } from "../../shared/lib";
 
 const Exercise = () => {
   const { id } = useParams();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [exercise, setExercise] = useState<TExercise>();
-
-  useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true);
-      try {
-        const response = await fetch(`http://127.0.0.1:5000/exercises/${id}`, {
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-        const data: TExercise = await response.json();
-        setExercise({ ...data });
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getData();
-  }, []);
+  const { data, isLoading } = useFetchData<TExercise>({
+    url: `http://127.0.0.1:5000/exercises/${id}`,
+  });
 
   const handleStartListening = () => {
     // @ts-expect-error разбераюсь
@@ -51,13 +31,11 @@ const Exercise = () => {
 
   return (
     <div className={styles.Exercise}>
-      <h1 className={styles.Exercise__title}>{exercise?.name}</h1>
+      <h1 className={styles.Exercise__title}>{data?.name}</h1>
       <div className={styles.Exercise__content}>
         <p className={styles["Exercise__time-spent"]}>
           {<ClockIcon />} Время в работе:{" "}
-          <span className={styles.Exercise__medium}>
-            {exercise?.time_spent}
-          </span>
+          <span className={styles.Exercise__medium}>{data?.time_spent}</span>
         </p>
         <Progress percent={77} />
         <div>
