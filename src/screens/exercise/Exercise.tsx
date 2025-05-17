@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
+import { useFetchData } from "../../shared/lib";
 import { Button, Divider, Progress } from "../../shared/ui";
 import { TExercise } from "../../shared/types";
 
 import styles from "./Exercise.module.css";
-import { useFetchData } from "../../shared/lib";
 
 const Exercise = () => {
   const { id } = useParams();

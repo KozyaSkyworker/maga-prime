@@ -53,6 +53,7 @@
     box-shadow: 3px 3px black;
 }
 
-
-
-
+.Button:disabled {
+    opacity: .5;
+    pointer-events: none;
+}
