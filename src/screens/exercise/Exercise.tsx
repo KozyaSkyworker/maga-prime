@@ -5,7 +5,7 @@ import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
 import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
 import { Button, Divider, Progress } from "../../shared/ui";
-import { TExercise } from "../../shared/types";
+import { TExercise, TExerciseStatuses } from "../../shared/types";
 
 import styles from "./Exercise.module.css";
 
@@ -46,7 +46,7 @@ const Exercise = () => {
         </div>
         <Divider />
         <div>
-          <h2>Последние сайты:</h2>
+          <h2>Посещенные сайты:</h2>
           <ul>
             <li className={styles.Exercise__site}>
               <CheckIcon />
@@ -68,8 +68,15 @@ const Exercise = () => {
         </div>
       </div>
       <div className={styles.Exercise__footer}>
-        <Button text="Начать" onClick={handleStartListening} />
-        <Button text="К полному отчету" />
+        {data?.status === TExerciseStatuses.NOT_STARTED && (
+          <Button text="Начать" onClick={handleStartListening} variant="new" />
+        )}
+        {data?.status === TExerciseStatuses.PROCESS && (
+          <Button text="Остановить" />
+        )}
+        {data?.status === TExerciseStatuses.FINISHED && (
+          <Button text="К полному отчету" variant="info" />
+        )}
       </div>
     </div>
   );

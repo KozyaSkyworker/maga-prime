@@ -12,6 +12,8 @@ interface Props extends TExercise {
   className?: string;
 }
 
+const STRING_DIVIDER = " / ";
+
 export const ExerciseCard: FC<Props> = ({
   className = "",
   id,
@@ -36,8 +38,8 @@ export const ExerciseCard: FC<Props> = ({
       <div className={styles.ExerciseCard__content}>
         <span className={styles.ExerciseCard__items}>
           {new Date(started_at).toLocaleDateString()}
-        </span>{" "}
-        /{" "}
+        </span>
+        {STRING_DIVIDER}
         <span className={styles.ExerciseCard__items}>
           {time_spent || "Не начато"}
         </span>
