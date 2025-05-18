@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
-import { useFetchData } from "../../shared/lib";
+import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
 import { Button, Divider, Progress } from "../../shared/ui";
 import { TExercise } from "../../shared/types";
 
@@ -13,7 +13,7 @@ const Exercise = () => {
   const { id } = useParams();
 
   const { data, isLoading } = useFetchData<TExercise>({
-    url: `http://127.0.0.1:5000/exercises/${id}`,
+    url: `${BASE_BACK_URL}/exercises/${id}`,
   });
 
   const handleStartListening = () => {

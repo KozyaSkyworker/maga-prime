@@ -34,8 +34,13 @@ export const ExerciseCard: FC<Props> = ({
         </div>
       </div>
       <div className={styles.ExerciseCard__content}>
-        <span className={styles.ExerciseCard__items}>{started_at}</span> /{" "}
-        <span className={styles.ExerciseCard__items}>{time_spent}</span>
+        <span className={styles.ExerciseCard__items}>
+          {new Date(started_at).toLocaleDateString()}
+        </span>{" "}
+        /{" "}
+        <span className={styles.ExerciseCard__items}>
+          {time_spent || "Не начато"}
+        </span>
       </div>
     </div>
   );

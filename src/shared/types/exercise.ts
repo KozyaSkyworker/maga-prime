@@ -4,3 +4,7 @@ export type TExercise = {
   started_at: string;
   time_spent: string;
 };
+
+export type TExerciseRequest = {
+  name: string;
+};

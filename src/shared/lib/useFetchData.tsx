@@ -27,7 +27,7 @@ export const useFetchData = <T,>({ url }: Props) => {
     };
 
     getData();
-  }, []);
+  }, [url]);
 
   return { data, isLoading };
 };

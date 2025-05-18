@@ -1,0 +1,21 @@
+:root {
+    --font-size-alert: 16px;
+    --padding-alert: 10px;
+}
+
+.Alert {
+    font-size: var(--font-size-alert);
+    padding: var(--padding-alert);
+    border-radius: var(--border-radius);
+    color: var(--bg-color);
+}
+
+.Alert_success{
+    background-color: var(--color-new);
+}
+.Alert_error {
+    background-color: var(--color-error);
+}
+.Alert_info {
+    background-color: var(--color-info);
+}

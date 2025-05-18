@@ -6,7 +6,7 @@ import { ReactComponent as SortIcon } from "../../assets/icons/sort.svg";
 
 import { ExerciseList } from "../../widgets/exercise-list";
 
-import { useFetchData } from "../../shared/lib";
+import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
 import { TExercise } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
@@ -19,7 +19,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const { data, isLoading } = useFetchData<TExercise[]>({
-    url: "http://127.0.0.1:5000/exercises",
+    url: `${BASE_BACK_URL}/exercises?sort=${sort}`,
   });
 
   const handleChangeSort = () => {

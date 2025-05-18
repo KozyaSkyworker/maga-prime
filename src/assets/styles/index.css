@@ -19,10 +19,10 @@
     --color-new-shadow: #0ea02d;
     --color-info: #267CFD;
     --color-info-shadow: #0f55c0;
+    --color-error: red;
     
     --color-ghost: #f0f0f0;
   
-
     --font-size-base: 14px;
 
     --svg-size: 20px;
