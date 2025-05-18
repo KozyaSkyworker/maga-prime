@@ -21,7 +21,7 @@ export const ExerciseList: FC<Props> = ({
   return (
     <div className={className}>
       {items.length === 0 ? (
-        <h2>Заданий пока нет</h2>
+        <h2>Задания не найдены</h2>
       ) : (
         <ul className={classNames(styles.ExerciseList, classNameList)}>
           {items.map((itm) => (

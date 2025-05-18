@@ -29,13 +29,17 @@ const Exercise = () => {
     return "Загрузка...";
   }
 
+  if (!data) {
+    return "Кажется, такого задания нет или при его получении произошла ошибка";
+  }
+
   return (
     <div className={styles.Exercise}>
-      <h1 className={styles.Exercise__title}>{data?.name}</h1>
+      <h1 className={styles.Exercise__title}>{data.name}</h1>
       <div className={styles.Exercise__content}>
         <p className={styles["Exercise__time-spent"]}>
           {<ClockIcon />} Время в работе:{" "}
-          <span className={styles.Exercise__medium}>{data?.time_spent}</span>
+          <span className={styles.Exercise__medium}>{data.time_spent}</span>
         </p>
         <Progress percent={77} />
         <div>
@@ -68,13 +72,13 @@ const Exercise = () => {
         </div>
       </div>
       <div className={styles.Exercise__footer}>
-        {data?.status === TExerciseStatuses.NOT_STARTED && (
+        {data.status === TExerciseStatuses.NOT_STARTED && (
           <Button text="Начать" onClick={handleStartListening} variant="new" />
         )}
-        {data?.status === TExerciseStatuses.PROCESS && (
+        {data.status === TExerciseStatuses.PROCESS && (
           <Button text="Остановить" />
         )}
-        {data?.status === TExerciseStatuses.FINISHED && (
+        {data.status === TExerciseStatuses.FINISHED && (
           <Button text="К полному отчету" variant="info" />
         )}
       </div>

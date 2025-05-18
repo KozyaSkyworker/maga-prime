@@ -24,7 +24,7 @@ export const ExerciseForm = () => {
       return;
     }
 
-    const response = await mutationRequest({ name });
+    const response = await mutationRequest({ name, user_id: 1 });
 
     if (response && response.status === 201) {
       setIsShowSuccessMessage(true);

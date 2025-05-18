@@ -18,7 +18,7 @@ export const ExerciseCard: FC<Props> = ({
   className = "",
   id,
   name,
-  started_at,
+  created_at,
   time_spent,
 }) => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ export const ExerciseCard: FC<Props> = ({
       </div>
       <div className={styles.ExerciseCard__content}>
         <span className={styles.ExerciseCard__items}>
-          {new Date(started_at).toLocaleDateString()}
+          {new Date(created_at).toLocaleDateString()}
         </span>
         {STRING_DIVIDER}
         <span className={styles.ExerciseCard__items}>

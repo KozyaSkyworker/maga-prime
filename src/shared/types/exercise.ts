@@ -8,12 +8,15 @@ export const enum TExerciseStatuses {
 
 export type TExercise = {
   id: number;
-  name: string;
+  created_at: string;
   started_at: string;
   time_spent: string;
+  name: string;
   status: TExerciseStatus;
+  user_id: number;
 };
 
 export type TExerciseRequest = {
   name: string;
+  user_id: number;
 };

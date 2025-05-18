@@ -14,7 +14,7 @@ import { Button } from "../../shared/ui";
 import styles from "./Home.module.css";
 
 const Home = () => {
-  const [sort, setSort] = useState<"asc" | "desc">("asc");
+  const [sort, setSort] = useState<"asc" | "desc">("desc");
 
   const navigate = useNavigate();
 
