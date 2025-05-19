@@ -9,6 +9,8 @@ import { TExercise, TExerciseStatuses } from "../../shared/types";
 
 import styles from "./Exercise.module.css";
 
+const PERCENT = 78;
+
 const Exercise = () => {
   const { id } = useParams();
 
@@ -23,8 +25,6 @@ const Exercise = () => {
     });
   };
 
-  const PERCENT = 78;
-
   if (isLoading) {
     return "Загрузка...";
   }
@@ -37,10 +37,12 @@ const Exercise = () => {
     <div className={styles.Exercise}>
       <h1 className={styles.Exercise__title}>{data.name}</h1>
       <div className={styles.Exercise__content}>
-        <p className={styles["Exercise__time-spent"]}>
-          {<ClockIcon />} Время в работе:{" "}
-          <span className={styles.Exercise__medium}>{data.time_spent}</span>
-        </p>
+        {data.status !== TExerciseStatuses.NOT_STARTED && (
+          <p className={styles["Exercise__time-spent"]}>
+            {<ClockIcon />} Время в работе:{" "}
+            <span className={styles.Exercise__medium}>{data.time_spent}</span>
+          </p>
+        )}
         <Progress percent={77} />
         <div>
           <p>
