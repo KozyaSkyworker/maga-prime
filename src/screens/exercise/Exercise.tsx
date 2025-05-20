@@ -18,11 +18,15 @@ const Exercise = () => {
     url: `${BASE_BACK_URL}/exercises/${id}`,
   });
 
-  const handleStartListening = () => {
+  const handleStartListening = (exerciseId: number) => {
     // @ts-expect-error разбераюсь
-    chrome.runtime.sendMessage({ action: "startListening" }, (response) => {
-      console.log("Ответ от background:", response);
-    });
+    chrome.runtime.sendMessage(
+      { action: "startListening", exerciseId },
+      (response: { status: string; exerciseId: number }) => {
+        console.log("Ответ от background:", response);
+      },
+    );
+    // TODO: reload для тригера рефетча?
   };
 
   if (isLoading) {
@@ -75,7 +79,11 @@ const Exercise = () => {
       </div>
       <div className={styles.Exercise__footer}>
         {data.status === TExerciseStatuses.NOT_STARTED && (
-          <Button text="Начать" onClick={handleStartListening} variant="new" />
+          <Button
+            text="Начать"
+            onClick={() => handleStartListening(data.id)}
+            variant="new"
+          />
         )}
         {data.status === TExerciseStatuses.PROCESS && (
           <Button text="Остановить" />

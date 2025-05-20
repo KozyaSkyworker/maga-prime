@@ -3,7 +3,7 @@
   "name": "Student Tracker",
   "version": "1.0",
   "description": "Предназначено для студентов и их преподавателй с целью улучшения дистанционного обучения",
-  "permissions": ["history", "tabs", "scripting", "activeTab"],
+  "permissions": ["history", "tabs", "scripting", "activeTab", "storage"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"

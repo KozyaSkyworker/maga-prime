@@ -1,21 +1,14 @@
-// chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-//   if (changeInfo.status === "complete" && tab.url.startsWith("http")) {
-//     chrome.scripting.executeScript({
-//       target: { tabId },
-//       files: ["content.js"],
-//     });
-//   }
-// });
-
 let isListening = false;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "startListening") {
     isListening = true;
-    sendResponse({ status: "started" });
+    chrome.storage.local.set({ exerciseId: message.exerciseId });
+    sendResponse({ status: "started", exerciseId: message.exerciseId });
   } else if (message.action === "stopListening") {
     isListening = false;
-    sendResponse({ status: "stopped" });
+    chrome.storage.local.remove(["exerciseId"]);
+    sendResponse({ status: "stopped", exerciseId: message.exerciseId });
   }
 });
 
@@ -24,7 +17,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
   if (changeInfo.status === "complete" && tab.url.startsWith("http")) {
     chrome.scripting.executeScript({
-      target: { tabId: tabId },
+      target: { tabId },
       files: ["content.js"],
     });
   }
