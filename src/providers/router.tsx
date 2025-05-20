@@ -1,6 +1,7 @@
 import { createHashRouter, RouteObject } from "react-router-dom";
 
 import { Exercise } from "../screens/exercise";
+import { Report } from "../screens/report";
 import { Create } from "../screens/create";
 import { Home } from "../screens/home";
 
@@ -27,6 +28,10 @@ const routes: RouteObject[] = [
           {
             path: ROUTES.CREATE,
             element: <Create />,
+          },
+          {
+            path: ROUTES.REPORT,
+            element: <Report />,
           },
         ],
       },

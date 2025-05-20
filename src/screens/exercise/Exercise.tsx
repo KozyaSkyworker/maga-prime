@@ -1,11 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
+import { TExercise, TExerciseStatuses } from "../../shared/types";
 import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
 import { Button, Divider, Progress } from "../../shared/ui";
-import { TExercise, TExerciseStatuses } from "../../shared/types";
+import { ROUTES } from "../../shared/routes";
 
 import styles from "./Exercise.module.css";
 
@@ -13,6 +14,8 @@ const PERCENT = 78;
 
 const Exercise = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const { data, isLoading } = useFetchData<TExercise>({
     url: `${BASE_BACK_URL}/exercises/${id}`,
@@ -22,6 +25,17 @@ const Exercise = () => {
     // @ts-expect-error разбераюсь
     chrome.runtime.sendMessage(
       { action: "startListening", exerciseId },
+      (response: { status: string; exerciseId: number }) => {
+        console.log("Ответ от background:", response);
+      },
+    );
+    // TODO: reload для тригера рефетча?
+  };
+
+  const handleStopListening = (exerciseId: number) => {
+    // @ts-expect-error разбераюсь
+    chrome.runtime.sendMessage(
+      { action: "stopListening", exerciseId },
       (response: { status: string; exerciseId: number }) => {
         console.log("Ответ от background:", response);
       },
@@ -86,10 +100,17 @@ const Exercise = () => {
           />
         )}
         {data.status === TExerciseStatuses.PROCESS && (
-          <Button text="Остановить" />
+          <Button
+            text="Остановить"
+            onClick={() => handleStopListening(data.id)}
+          />
         )}
         {data.status === TExerciseStatuses.FINISHED && (
-          <Button text="К полному отчету" variant="info" />
+          <Button
+            text="К полному отчету"
+            onClick={() => navigate(`${ROUTES.REPORT}/${data.id}`)}
+            variant="info"
+          />
         )}
       </div>
     </div>
