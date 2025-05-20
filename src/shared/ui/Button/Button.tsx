@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   text?: string;
   className?: string;
-  variant?: "primary" | "new" | "info" | "ghost";
+  variant?: "primary" | "new" | "info" | "error" | "ghost";
 }
 
 export const Button: FC<Props> = ({

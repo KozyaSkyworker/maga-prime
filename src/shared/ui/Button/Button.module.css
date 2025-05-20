@@ -46,6 +46,17 @@
     background-color:  var(--color-info-shadow);
 }
 
+.Button_error {
+    background-color: var(--color-error);
+}
+.Button_error:focus-visible,
+.Button_error:hover {
+    box-shadow: 3px 3px var(--color-error-shadow);
+}
+.Button_error:active{
+    background-color:  var(--color-error-shadow);
+}
+
 .Button_ghost {
     background-color: transparent;
 }

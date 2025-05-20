@@ -6,6 +6,7 @@ import { TExercise } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
 
+import { ExerciseCardTitle } from "./ExerciseCardTitle";
 import styles from "./ExerciseCard.module.css";
 
 interface Props extends TExercise {
@@ -23,26 +24,34 @@ export const ExerciseCard: FC<Props> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleClickRedirectBtn = (id: number) => {
+  const handleClickRedirectBtn = () => {
     navigate(`${ROUTES.EXERCISES}/${id}`);
+  };
+
+  const handleClickDelete = () => {
+    // TODO: show popup confirm
+    // TODO: Fetch delete by id
   };
 
   return (
     <div className={classNames(styles.ExerciseCard, className)}>
       <div className={styles.ExerciseCard__header}>
-        <h2 className={styles.ExerciseCard__title}>{name}</h2>
+        <ExerciseCardTitle name={name} />
         <div>
-          <Button text="Перейти" onClick={() => handleClickRedirectBtn(id)} />
+          <Button text="Перейти" onClick={handleClickRedirectBtn} />
         </div>
       </div>
       <div className={styles.ExerciseCard__content}>
-        <span className={styles.ExerciseCard__items}>
-          {new Date(created_at).toLocaleDateString()}
-        </span>
-        {STRING_DIVIDER}
-        <span className={styles.ExerciseCard__items}>
-          {time_spent || "Не начато"}
-        </span>
+        <p>
+          <span className={styles.ExerciseCard__items}>
+            {new Date(created_at).toLocaleDateString()}
+          </span>
+          {STRING_DIVIDER}
+          <span className={styles.ExerciseCard__items}>
+            {time_spent || "Не начато"}
+          </span>
+        </p>
+        <Button variant="error" text="Удалить" onClick={handleClickDelete} />
       </div>
     </div>
   );
