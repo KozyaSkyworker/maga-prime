@@ -3,4 +3,5 @@ export const ROUTES = {
   EXERCISES: "/exercises",
   EXERCISE: "/exercises/:id",
   CREATE: "/exercises/create",
+  LOGIN: "/login",
 };

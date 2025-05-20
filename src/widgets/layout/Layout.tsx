@@ -3,8 +3,10 @@ import { Suspense } from "react";
 
 import styles from "./Layout.module.css";
 
-export const Layout = () => (
-  <div className={styles.Layout}>
-    <Suspense fallback={"Загрузка..."}>{<Outlet />}</Suspense>
-  </div>
-);
+export const Layout = () => {
+  return (
+    <div className={styles.Layout}>
+      <Suspense fallback={"Загрузка..."}>{<Outlet />}</Suspense>
+    </div>
+  );
+};
