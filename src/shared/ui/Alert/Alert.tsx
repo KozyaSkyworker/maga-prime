@@ -3,12 +3,12 @@ import classNames from "classnames";
 
 import styles from "./Alert.module.css";
 
-interface Props {
+export interface AlertProps {
   text: string;
   variant?: "success" | "error" | "info";
 }
 
-export const Alert = ({ text, variant = "success" }: Props) => {
+export const Alert = ({ text, variant = "success" }: AlertProps) => {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {

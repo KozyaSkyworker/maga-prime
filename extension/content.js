@@ -38,7 +38,7 @@ chrome.storage.local.get("exerciseId", ({ exerciseId }) => {
   //     headers: { "Content-type": "application/json" },
   //     body: JSON.stringify({
   //       url: window.location.href,
-  //       is_relevant: '1',
+  //       title: document.title,
   //       exercise_id: exerciseId
   //     }),
   //   });

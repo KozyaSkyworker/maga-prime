@@ -2,13 +2,13 @@ import { FormEvent, useState } from "react";
 
 import { BASE_BACK_URL, useMutationRequest } from "../../shared/lib";
 import { TExercise, TExerciseRequest } from "../../shared/types";
-import { Alert, Button, Input } from "../../shared/ui";
+import { Alert, type AlertProps, Button, Input } from "../../shared/ui";
 
 import styles from "./ExerciseForm.module.css";
 
 export const ExerciseForm = () => {
   const [name, setName] = useState("");
-  const [isShowSuccessMessage, setIsShowSuccessMessage] = useState(false);
+  const [responseMessage, setResponseMessage] = useState<AlertProps>();
 
   const { mutationRequest, isMutating } = useMutationRequest<
     TExerciseRequest,
@@ -27,8 +27,16 @@ export const ExerciseForm = () => {
     const response = await mutationRequest({ name, user_id: 1 });
 
     if (response && response.status === 201) {
-      setIsShowSuccessMessage(true);
+      setResponseMessage({
+        text: "Задача создана успешно!",
+        variant: "success",
+      });
       setName("");
+    } else {
+      setResponseMessage({
+        text: "Ошибка!",
+        variant: "error",
+      });
     }
   };
 
@@ -43,7 +51,9 @@ export const ExerciseForm = () => {
         />
       </label>
       <Button text="Создать" variant="new" disabled={!name || isMutating} />
-      {isShowSuccessMessage && <Alert text="Задача создана успешно!" />}
+      {responseMessage && (
+        <Alert text={responseMessage.text} variant={responseMessage.variant} />
+      )}
     </form>
   );
 };
