@@ -1,7 +1,7 @@
 import { FC } from "react";
 import classNames from "classnames";
 
-import { TExercise } from "../../shared/types";
+import { TExerciseDto } from "../../shared/types";
 
 import { ExerciseCard } from "../exercise-card/ExerciseCard";
 
@@ -10,7 +10,7 @@ import styles from "./ExerciseLIst.module.css";
 interface Props {
   className?: string;
   classNameList?: string;
-  items: TExercise[];
+  items: TExerciseDto[];
 }
 
 export const ExerciseList: FC<Props> = ({

@@ -4,14 +4,14 @@ import classNames from "classnames";
 
 import { DeleteExercise } from "../../features/delete-exercise";
 
-import { TExercise } from "../../shared/types";
+import { TExerciseDto } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
 
 import { ExerciseCardTitle } from "./ExerciseCardTitle";
 import styles from "./ExerciseCard.module.css";
 
-interface Props extends TExercise {
+interface Props extends TExerciseDto {
   className?: string;
 }
 
@@ -47,7 +47,7 @@ export const ExerciseCard: FC<Props> = ({
           </span>
           {STRING_DIVIDER}
           <span className={styles.ExerciseCard__items}>
-            {time_spent || "Не начато"}
+            {time_spent || "Время не отмечено"}
           </span>
         </p>
         <DeleteExercise id={id} />

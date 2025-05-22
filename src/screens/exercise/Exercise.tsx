@@ -5,7 +5,11 @@ import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
 import { DeleteExercise } from "../../features/delete-exercise";
 
-import { TExercise, TExerciseStatuses } from "../../shared/types";
+import {
+  TExercise,
+  TExerciseStatuses,
+  TExerciseUpdateRequest,
+} from "../../shared/types";
 import {
   BASE_BACK_URL,
   useFetchData,
@@ -27,7 +31,10 @@ const Exercise = () => {
     url: `${BASE_BACK_URL}/exercises/${id}`,
   });
 
-  const { mutationRequest } = useMutationRequest<void, TExercise>({
+  const { mutationRequest } = useMutationRequest<
+    TExerciseUpdateRequest,
+    TExercise
+  >({
     url: `${BASE_BACK_URL}/exercises/${id}`,
     method: "PATCH",
   });
@@ -40,7 +47,9 @@ const Exercise = () => {
         console.log("Ответ от background:", response);
 
         if (response.status === "started") {
-          mutationRequest().then(() => window.location.reload());
+          mutationRequest({ status: TExerciseStatuses.PROCESS }).then(() =>
+            window.location.reload(),
+          );
         }
       },
     );
@@ -54,6 +63,12 @@ const Exercise = () => {
       { action: "stopListening", exerciseId },
       (response: { status: string; exerciseId: number }) => {
         console.log("Ответ от background:", response);
+
+        if (response.status === "stopped") {
+          mutationRequest({ status: TExerciseStatuses.FINISHED }).then(() =>
+            window.location.reload(),
+          );
+        }
       },
     );
     // TODO: reload для тригера рефетча?
@@ -87,64 +102,65 @@ const Exercise = () => {
   return (
     <div className={styles.Exercise}>
       <div className={styles.Exercise__top}>
-        <h1 className={styles.Exercise__title}>{data.name}</h1>
-        <DeleteExercise id={data.id} redirectTo={ROUTES.HOME} />
+        <h1 className={styles.Exercise__title}>{data.exercise.name}</h1>
+        <DeleteExercise id={data.exercise.id} redirectTo={ROUTES.HOME} />
       </div>
       <div className={styles.Exercise__content}>
-        {data.status !== TExerciseStatuses.NOT_STARTED && (
+        {data.exercise.status !== TExerciseStatuses.NOT_STARTED && (
           <p className={styles["Exercise__time-spent"]}>
-            {<ClockIcon />} Время в работе:{" "}
-            <span className={styles.Exercise__medium}>{data.time_spent}</span>
+            {<ClockIcon />} Время в работе:
+            <span className={styles.Exercise__medium}>
+              {data.exercise.time_spent}
+            </span>
           </p>
         )}
-        <Progress percent={77} />
-        <div>
-          <p>
-            Процент релавнтных сайтов -{" "}
-            <span className={styles.Exercise__medium}>{PERCENT}% </span>
-          </p>
-        </div>
+        {data.exercise.status === TExerciseStatuses.FINISHED && (
+          <>
+            <Progress percent={77} />
+            <div>
+              <p>
+                Процент релавнтных сайтов -{" "}
+                <span className={styles.Exercise__medium}>{PERCENT}% </span>
+              </p>
+            </div>
+          </>
+        )}
         <Divider />
         <div>
           <h2>Посещенные сайты:</h2>
-          <ul>
-            <li className={styles.Exercise__site}>
-              <CheckIcon />
-              first
-            </li>
-            <li className={styles.Exercise__site}>
-              <CheckIcon />
-              second seconds
-            </li>
-            <li className={styles.Exercise__site}>
-              <CheckIcon />
-              third third third third third
-            </li>
-            <li className={styles.Exercise__site}>
-              <CheckIcon />
-              fourth fourth fourth
-            </li>
-          </ul>
+          {/* TODO: message if empty */}
+          {data.urls.length > 0 ? (
+            <ul>
+              {data.urls.map((itm) => (
+                <li key={itm.id} className={styles.Exercise__site}>
+                  <CheckIcon />
+                  {itm.url}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Нет посещенных сайтов</p>
+          )}
         </div>
       </div>
       <div className={styles.Exercise__footer}>
-        {data.status === TExerciseStatuses.NOT_STARTED && (
+        {data.exercise.status === TExerciseStatuses.NOT_STARTED && (
           <Button
             text="Начать"
-            onClick={() => handleStartListening(data.id)}
+            onClick={() => handleStartListening(data.exercise.id)}
             variant="new"
           />
         )}
-        {data.status === TExerciseStatuses.PROCESS && (
+        {data.exercise.status === TExerciseStatuses.PROCESS && (
           <Button
             text="Остановить"
-            onClick={() => handleStopListening(data.id)}
+            onClick={() => handleStopListening(data.exercise.id)}
           />
         )}
-        {data.status === TExerciseStatuses.FINISHED && (
+        {data.exercise.status === TExerciseStatuses.FINISHED && (
           <Button
             text="К полному отчету"
-            onClick={() => navigate(`${ROUTES.REPORT}/${data.id}`)}
+            onClick={() => navigate(`${ROUTES.REPORT}/${data.exercise.id}`)}
             variant="info"
           />
         )}

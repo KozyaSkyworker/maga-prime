@@ -1,3 +1,5 @@
+import { TUrlDto } from "./url";
+
 export type TExerciseStatus = 1 | 2 | 3;
 
 export const enum TExerciseStatuses {
@@ -6,7 +8,7 @@ export const enum TExerciseStatuses {
   "FINISHED",
 }
 
-export type TExercise = {
+export type TExerciseDto = {
   id: number;
   created_at: string;
   started_at: string;
@@ -16,7 +18,16 @@ export type TExercise = {
   user_id: number;
 };
 
+export type TExercise = {
+  exercise: TExerciseDto;
+  urls: TUrlDto[];
+};
+
 export type TExerciseRequest = {
   name: string;
   user_id: number;
+};
+
+export type TExerciseUpdateRequest = {
+  status: TExerciseStatus;
 };

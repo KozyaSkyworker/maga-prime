@@ -7,7 +7,7 @@ import { ReactComponent as SortIcon } from "../../assets/icons/sort.svg";
 import { ExerciseList } from "../../widgets/exercise-list";
 
 import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
-import { TExercise } from "../../shared/types";
+import { TExerciseDto } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
 
@@ -18,7 +18,7 @@ const Home = () => {
 
   const navigate = useNavigate();
 
-  const { data, isLoading } = useFetchData<TExercise[]>({
+  const { data, isLoading } = useFetchData<TExerciseDto[]>({
     url: `${BASE_BACK_URL}/exercises?sort=${sort}`,
   });
 
