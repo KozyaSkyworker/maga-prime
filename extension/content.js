@@ -1,4 +1,4 @@
-const EXERSICE_NAME = "Базы данных";
+// const EXERSICE_NAME = "Базы данных";
 
 // const textContent = Array.from(document.querySelectorAll("p"))
 //   .map((paragraph) => paragraph.innerText)
@@ -31,6 +31,16 @@ const EXERSICE_NAME = "Базы данных";
 //   body: JSON.stringify({ url: window.location.href, is_relevant: response }),
 // });
 // });
+
+let startTime = Date.now();
+
+window.addEventListener("unload", () => {
+  const timeSpent = Date.now() - startTime;
+  navigator.sendBeacon(
+    "/???",
+    JSON.stringify({ timeSpent, title: document.title }),
+  );
+});
 
 chrome.storage.local.get("exerciseId", ({ exerciseId }) => {
   //   fetch("http://127.0.0.1:5000/urls", {

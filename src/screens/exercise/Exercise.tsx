@@ -41,6 +41,23 @@ const Exercise = () => {
       },
     );
     // TODO: reload для тригера рефетча?
+
+    // fetch("http://127.0.0.1:11434/api/chat", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     model: "gemma3:4b",
+    //     messages: [
+    //       {
+    //         role: "user",
+    //         content: `Ответь да или нет. Следующий текст "${textContent}" соотносится с тематикой моего задания "${EXERSICE_NAME}"`,
+    //       },
+    //     ],
+    //     stream: false,
+    //   }),
+    // })
   };
 
   if (isLoading) {
