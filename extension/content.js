@@ -32,25 +32,28 @@
 // });
 // });
 
-let startTime = Date.now();
+window.addEventListener("visibilitychange", (event) => {
+  // navigator.sendBeacon(
+  //   "http://127.0.0.1:5000/urls",
+  //   JSON.stringify({ timeSpent, title: document.title }),
+  // );
 
-window.addEventListener("unload", () => {
-  const timeSpent = Date.now() - startTime;
-  navigator.sendBeacon(
-    "/???",
-    JSON.stringify({ timeSpent, title: document.title }),
-  );
+  if (document.hidden) {
+    console.log("hidden");
+  } else {
+    console.log("not hidden");
+  }
 });
 
 chrome.storage.local.get("exerciseId", ({ exerciseId }) => {
-  //   fetch("http://127.0.0.1:5000/urls", {
-  //     method: "POST",
-  //     headers: { "Content-type": "application/json" },
-  //     body: JSON.stringify({
-  //       url: window.location.href,
-  //       title: document.title,
-  //       exercise_id: exerciseId
-  //     }),
-  //   });
-  console.log(window.location.href, exerciseId, document.title);
+  fetch("http://127.0.0.1:5000/urls", {
+    method: "POST",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      url: window.location.href,
+      title: document.title,
+      visited_at: Date.now(),
+      exercise_id: exerciseId,
+    }),
+  });
 });

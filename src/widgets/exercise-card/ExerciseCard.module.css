@@ -48,3 +48,8 @@
 .ExerciseCardTitle__input {
     max-width: 260px;
 }
+
+.ExerciseCard__delete {
+    color: var(--color-ghost);
+    padding: 3px 5px;
+}

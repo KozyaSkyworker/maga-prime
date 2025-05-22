@@ -8,7 +8,9 @@ import styles from "./ExerciseForm.module.css";
 
 export const ExerciseForm = () => {
   const [name, setName] = useState("");
-  const [responseMessage, setResponseMessage] = useState<AlertProps>();
+  const [responseMessage, setResponseMessage] = useState<AlertProps | null>(
+    null,
+  );
 
   const { mutationRequest, isMutating } = useMutationRequest<
     TExerciseRequest,
@@ -52,7 +54,11 @@ export const ExerciseForm = () => {
       </label>
       <Button text="Создать" variant="new" disabled={!name || isMutating} />
       {responseMessage && (
-        <Alert text={responseMessage.text} variant={responseMessage.variant} />
+        <Alert
+          text={responseMessage.text}
+          variant={responseMessage.variant}
+          callbackBeforeRemove={() => setResponseMessage(null)}
+        />
       )}
     </form>
   );

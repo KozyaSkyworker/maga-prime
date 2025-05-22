@@ -6,9 +6,14 @@ import styles from "./Alert.module.css";
 export interface AlertProps {
   text: string;
   variant?: "success" | "error" | "info";
+  callbackBeforeRemove?: () => void;
 }
 
-export const Alert = ({ text, variant = "success" }: AlertProps) => {
+export const Alert = ({
+  text,
+  variant = "success",
+  callbackBeforeRemove,
+}: AlertProps) => {
   const ref = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
@@ -16,7 +21,7 @@ export const Alert = ({ text, variant = "success" }: AlertProps) => {
 
     if (ref.current) {
       timer = setTimeout(() => {
-        ref.current!.remove();
+        callbackBeforeRemove?.();
       }, 777);
     }
 

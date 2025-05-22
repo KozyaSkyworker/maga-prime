@@ -10,6 +10,7 @@
 
 .Home__sort {
     padding: 0 5px;
+    color: var(--color-text);
 }
 
 .Home__svg {

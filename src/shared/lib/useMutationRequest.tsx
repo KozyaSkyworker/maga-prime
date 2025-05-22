@@ -3,7 +3,7 @@ import { TBaseDto } from "../types";
 
 interface Props {
   url: string;
-  method?: "POST" | "PUT" | "PATCH";
+  method?: "POST" | "PUT" | "PATCH" | "DELETE";
 }
 
 export const useMutationRequest = <Request, Response>({
