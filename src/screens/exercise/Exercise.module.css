@@ -4,6 +4,12 @@
     gap: 25px;
 }
 
+.Exercise__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
 .Exercise__time-spent {
     display: flex;
     align-items: center;

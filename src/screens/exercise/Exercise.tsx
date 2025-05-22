@@ -3,8 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
+import { DeleteExercise } from "../../features/delete-exercise";
+
 import { TExercise, TExerciseStatuses } from "../../shared/types";
-import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
+import {
+  BASE_BACK_URL,
+  useFetchData,
+  useMutationRequest,
+} from "../../shared/lib";
 import { Button, Divider, Progress } from "../../shared/ui";
 import { ROUTES } from "../../shared/routes";
 
@@ -21,14 +27,24 @@ const Exercise = () => {
     url: `${BASE_BACK_URL}/exercises/${id}`,
   });
 
+  const { mutationRequest } = useMutationRequest<void, TExercise>({
+    url: `${BASE_BACK_URL}/exercises/${id}`,
+    method: "PATCH",
+  });
+
   const handleStartListening = (exerciseId: number) => {
     // @ts-expect-error разбераюсь
     chrome.runtime.sendMessage(
       { action: "startListening", exerciseId },
       (response: { status: string; exerciseId: number }) => {
         console.log("Ответ от background:", response);
+
+        if (response.status === "started") {
+          mutationRequest().then(() => window.location.reload());
+        }
       },
     );
+
     // TODO: reload для тригера рефетча?
   };
 
@@ -70,7 +86,10 @@ const Exercise = () => {
 
   return (
     <div className={styles.Exercise}>
-      <h1 className={styles.Exercise__title}>{data.name}</h1>
+      <div className={styles.Exercise__top}>
+        <h1 className={styles.Exercise__title}>{data.name}</h1>
+        <DeleteExercise id={data.id} redirectTo={ROUTES.HOME} />
+      </div>
       <div className={styles.Exercise__content}>
         {data.status !== TExerciseStatuses.NOT_STARTED && (
           <p className={styles["Exercise__time-spent"]}>

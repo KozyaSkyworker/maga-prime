@@ -46,14 +46,16 @@ window.addEventListener("visibilitychange", (event) => {
 });
 
 chrome.storage.local.get("exerciseId", ({ exerciseId }) => {
+  const values = {
+    url: window.location.origin,
+    title: document.title,
+    visited_at: Date.now(),
+    exercise_id: exerciseId,
+  };
+
   fetch("http://127.0.0.1:5000/urls", {
     method: "POST",
     headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      url: window.location.href,
-      title: document.title,
-      visited_at: Date.now(),
-      exercise_id: exerciseId,
-    }),
+    body: JSON.stringify(values),
   });
 });

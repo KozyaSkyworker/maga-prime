@@ -2,9 +2,8 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 
-import { ReactComponent as DeleteIcon } from "../../assets/icons/delete.svg";
+import { DeleteExercise } from "../../features/delete-exercise";
 
-import { BASE_BACK_URL, useMutationRequest } from "../../shared/lib";
 import { TExercise } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
@@ -27,20 +26,8 @@ export const ExerciseCard: FC<Props> = ({
 }) => {
   const navigate = useNavigate();
 
-  const { mutationRequest, isMutating } = useMutationRequest<void, string>({
-    url: `${BASE_BACK_URL}/exercises/${id}`,
-    method: "DELETE",
-  });
-
   const handleClickRedirectBtn = () => {
     navigate(`${ROUTES.EXERCISES}/${id}`);
-  };
-
-  const handleClickDelete = async () => {
-    // TODO: show popup confirm + response обработать
-    await mutationRequest();
-
-    window.location.reload();
   };
 
   // TODO: ui + вынести логику по файликам с обработчиками
@@ -63,14 +50,7 @@ export const ExerciseCard: FC<Props> = ({
             {time_spent || "Не начато"}
           </span>
         </p>
-        <Button
-          variant="error"
-          onClick={handleClickDelete}
-          className={styles.ExerciseCard__delete}
-          disabled={isMutating}
-        >
-          <DeleteIcon />
-        </Button>
+        <DeleteExercise id={id} />
       </div>
     </div>
   );
