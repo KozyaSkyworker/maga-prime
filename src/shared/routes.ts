@@ -3,6 +3,7 @@ export const ROUTES = {
   EXERCISES: "/exercises",
   EXERCISE: "/exercises/:id",
   CREATE: "/exercises/create",
-  REPORT: "/report/:id",
+  REPORTS: "/reports",
+  REPORT: "/reports/:id",
   LOGIN: "/login",
 };

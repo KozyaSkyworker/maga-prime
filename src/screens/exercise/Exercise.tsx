@@ -27,6 +27,10 @@ const Exercise = () => {
 
   const navigate = useNavigate();
 
+  const handleRedirectToReport = () => {
+    navigate(`${ROUTES.REPORTS}/${data?.exercise.id}`);
+  };
+
   const { data, isLoading } = useFetchData<TExercise>({
     url: `${BASE_BACK_URL}/exercises/${id}`,
   });
@@ -160,7 +164,7 @@ const Exercise = () => {
         {data.exercise.status === TExerciseStatuses.FINISHED && (
           <Button
             text="К полному отчету"
-            onClick={() => navigate(`${ROUTES.REPORT}/${data.exercise.id}`)}
+            onClick={handleRedirectToReport}
             variant="info"
           />
         )}

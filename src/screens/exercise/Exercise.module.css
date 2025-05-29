@@ -40,3 +40,7 @@
     display: flex;
     align-items: center;
 }
+.Exercise__site svg{
+    height: 35px;
+    width: 35px;
+}
