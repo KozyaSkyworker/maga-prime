@@ -36,11 +36,29 @@
     justify-content: space-evenly;
 }
 
-.Exercise__site {
-    display: flex;
-    align-items: center;
+.Exercise__items {
+    margin-top: 15px;
 }
-.Exercise__site svg{
+
+.Exercise__item {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+}
+
+.Exercise__item + .Exercise__item {
+    margin-top: 10px;
+}
+
+.Exercise__svgWrapper{
     height: 35px;
     width: 35px;
+}
+.Exercise__svgWrapper svg{
+    height: 100%;
+    width: 100%;
+}
+
+.Exercise__siteData{
+    width: 100%;
 }
