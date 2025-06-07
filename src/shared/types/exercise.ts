@@ -14,6 +14,7 @@ export type TExerciseDto = {
   id: number;
   created_at: string;
   started_at: string;
+  stopped_at: string | null;
   time_spent: string;
   name: string;
   status: TExerciseStatus;

@@ -1,8 +1,11 @@
-export const getFormattedTimeDiff = (startTimeStr: string) => {
+export const getFormattedTimeDiff = (
+  startTime: string,
+  endTime?: string | null,
+) => {
   // Парсинг времени начала с заменой пробела на 'T' (ISO 8601)
-  const startDate = new Date(startTimeStr.replace(" ", "T"));
+  const startDate = new Date(startTime.replace(" ", "T"));
 
-  const now = new Date();
+  const now = endTime ? new Date(endTime.replace(" ", "T")) : new Date();
 
   // @ts-expect-error dates
   const diffMs = now - startDate; // Разница в миллисекундах

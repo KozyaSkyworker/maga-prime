@@ -24,6 +24,7 @@ export const ExerciseCard: FC<Props> = ({
   name,
   created_at,
   started_at,
+  stopped_at,
 }) => {
   const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ export const ExerciseCard: FC<Props> = ({
           {STRING_DIVIDER}
           <span className={styles.ExerciseCard__items}>
             {started_at
-              ? getFormattedTimeDiff(started_at)
+              ? getFormattedTimeDiff(started_at, stopped_at)
               : "Время не отмечено"}
           </span>
         </p>

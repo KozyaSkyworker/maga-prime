@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
@@ -5,127 +6,35 @@ import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 import { ReactComponent as EarthIcon } from "../../assets/icons/earth.svg";
 
 import { DeleteExercise } from "../../features/delete-exercise";
+import { StartExercise } from "../../features/start-exercise";
+import { StopExercise } from "../../features/stop-exercise";
 
 import {
   EXERCISE_STATUS_NAMES,
   TExercise,
   TExerciseStatuses,
-  TExerciseUpdateRequest,
 } from "../../shared/types";
 import {
   BASE_BACK_URL,
   getFormattedTimeDiff,
   useFetchData,
-  useMutationRequest,
 } from "../../shared/lib";
 import { Button, Divider, Progress } from "../../shared/ui";
 import { ROUTES } from "../../shared/routes";
 
 import styles from "./Exercise.module.css";
-import { useState } from "react";
 
 const PERCENT = 78;
 
 const Exercise = () => {
-  // TODO: ui + вынести логику по файликам с обработчиками
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [isClassifacationPending, setIsClassificationPending] = useState(false);
-  const [text] = useState("text");
 
   const { data, isLoading } = useFetchData<TExercise>({
     url: `${BASE_BACK_URL}/exercises/${id}`,
   });
-
-  const { mutationRequest } = useMutationRequest<
-    TExerciseUpdateRequest,
-    TExercise
-  >({
-    url: `${BASE_BACK_URL}/exercises/${id}`,
-    method: "PATCH",
-  });
-
-  const handleStartListening = (exerciseId: number) => {
-    mutationRequest({ status: TExerciseStatuses.PROCESS }).then(() =>
-      window.location.reload(),
-    );
-
-    // @ts-expect-error разбераюсь
-    chrome.runtime.sendMessage(
-      { action: "startListening", exerciseId },
-      (response: { status: string; exerciseId: number }) => {
-        if (response.status === "started") {
-          mutationRequest({ status: TExerciseStatuses.PROCESS }).then(() =>
-            window.location.reload(),
-          );
-        }
-      },
-    );
-
-    // TODO: reload для тригера рефетча?
-  };
-
-  const handleStopListening = (exerciseId: number) => {
-    mutationRequest({ status: TExerciseStatuses.FINISHED }).then(() =>
-      window.location.reload(),
-    );
-
-    // @ts-expect-error разбераюсь
-    chrome.runtime.sendMessage(
-      { action: "stopListening", exerciseId },
-      (response: { status: string; exerciseId: number }) => {
-        if (response.status === "stopped") {
-          handleStopExerciseAndClassificate();
-        }
-      },
-    );
-  };
-
-  async function handleStopExerciseAndClassificate() {
-    setIsClassificationPending(true);
-
-    // TODO: hook на fetch
-    const [first] = await Promise.allSettled([
-      fetch("http://127.0.0.1:11434/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gemma3:4b",
-          messages: [
-            {
-              role: "user",
-              content: `Ответь в виде массива JSON, где каждый элемент — это ответ "да" или "нет" при сравнении каждой из следующих фраз на соотношение фразы к фразе "Теория вероятности": ${data?.urls.map((itm) => itm.title).join(";")}`,
-            },
-          ],
-          stream: false,
-        }),
-      }),
-      mutationRequest({ status: TExerciseStatuses.FINISHED }),
-    ]);
-
-    // @ts-expect-error TODO: fix
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const d = await first.value.json();
-
-    // TODO: hook на fetch
-    //  TODO: fix
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const res = await fetch(`${BASE_BACK_URL}/urls/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        // TODO:
-        // url: id, итог из пред. запроса ?!??!?!?!?!?
-      }),
-    });
-
-    setIsClassificationPending(false);
-  }
 
   const handleRedirectToReport = () => {
     navigate(`${ROUTES.REPORTS}/${data?.exercise.id}`);
@@ -154,7 +63,10 @@ const Exercise = () => {
             <p className={styles["Exercise__time-spent"]}>
               {<ClockIcon />} Время в работе:
               <span className={styles.Exercise__medium}>
-                {getFormattedTimeDiff(data.exercise.started_at)}
+                {getFormattedTimeDiff(
+                  data.exercise.started_at,
+                  data.exercise.stopped_at,
+                )}
               </span>
             </p>
           )}
@@ -196,16 +108,12 @@ const Exercise = () => {
       </div>
       <div className={styles.Exercise__footer}>
         {data.exercise.status === TExerciseStatuses.NOT_STARTED && (
-          <Button
-            text="Начать"
-            onClick={() => handleStartListening(data.exercise.id)}
-            variant="new"
-          />
+          <StartExercise id={data.exercise.id} />
         )}
         {data.exercise.status === TExerciseStatuses.PROCESS && (
-          <Button
-            text="Остановить"
-            onClick={() => handleStopListening(data.exercise.id)}
+          <StopExercise
+            id={data.exercise.id}
+            setIsClassificationPending={setIsClassificationPending}
           />
         )}
         {data.exercise.status === TExerciseStatuses.FINISHED && (
@@ -216,13 +124,6 @@ const Exercise = () => {
             disabled={isClassifacationPending}
           />
         )}
-        <button
-          onClick={handleStopExerciseAndClassificate}
-          disabled={isClassifacationPending}
-        >
-          click {String(isClassifacationPending)}
-        </button>
-        {text}
       </div>
     </div>
   );
