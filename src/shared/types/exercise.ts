@@ -2,6 +2,8 @@ import { TUrlDto } from "./url";
 
 export type TExerciseStatus = 1 | 2 | 3;
 
+export const EXERCISE_STATUS_NAMES = ["Не начато", "В прооцессе", "Заверешено"];
+
 export const enum TExerciseStatuses {
   "NOT_STARTED" = 1,
   "PROCESS",

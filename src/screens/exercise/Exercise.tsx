@@ -2,10 +2,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
+import { ReactComponent as EarthIcon } from "../../assets/icons/earth.svg";
 
 import { DeleteExercise } from "../../features/delete-exercise";
 
 import {
+  EXERCISE_STATUS_NAMES,
   TExercise,
   TExerciseStatuses,
   TExerciseUpdateRequest,
@@ -43,6 +45,10 @@ const Exercise = () => {
   });
 
   const handleStartListening = (exerciseId: number) => {
+    mutationRequest({ status: TExerciseStatuses.PROCESS }).then(() =>
+      window.location.reload(),
+    );
+
     // @ts-expect-error разбераюсь
     chrome.runtime.sendMessage(
       { action: "startListening", exerciseId },
@@ -59,6 +65,10 @@ const Exercise = () => {
   };
 
   const handleStopListening = (exerciseId: number) => {
+    mutationRequest({ status: TExerciseStatuses.FINISHED }).then(() =>
+      window.location.reload(),
+    );
+
     // @ts-expect-error разбераюсь
     chrome.runtime.sendMessage(
       { action: "stopListening", exerciseId },
@@ -134,30 +144,35 @@ const Exercise = () => {
         <DeleteExercise id={data.exercise.id} redirectTo={ROUTES.HOME} />
       </div>
       <div className={styles.Exercise__content}>
-        {data.exercise.status !== TExerciseStatuses.NOT_STARTED && (
-          <p className={styles["Exercise__time-spent"]}>
-            {<ClockIcon />} Время в работе:
-            <span className={styles.Exercise__medium}>
-              {data.exercise.time_spent}
-            </span>
-          </p>
-        )}
+        <div className={styles.Exercise__time}>
+          <span className={styles.Exercise__status}>
+            {EXERCISE_STATUS_NAMES[data.exercise.status - 1]}
+          </span>
+          {data.exercise.status !== TExerciseStatuses.NOT_STARTED && (
+            <p className={styles["Exercise__time-spent"]}>
+              {<ClockIcon />} Время в работе:
+              <span className={styles.Exercise__medium}>
+                {data.exercise.time_spent}
+              </span>
+            </p>
+          )}
+        </div>
         {data.exercise.status === TExerciseStatuses.FINISHED && (
           <>
             <Progress percent={77} />
-            <div>
-              <p>
-                Процент релавнтных сайтов -{" "}
-                <span className={styles.Exercise__medium}>{PERCENT}% </span>
-              </p>
-            </div>
+            <p>
+              Процент релавнтных сайтов -
+              <span className={styles.Exercise__medium}> {PERCENT}% </span>
+            </p>
           </>
         )}
         <Divider />
-        <div>
-          <h2>Посещенные сайты:</h2>
-          {/* TODO: message if empty */}
-          {data.urls.length > 0 ? (
+        {data.urls.length > 0 ? (
+          <div>
+            <div className={styles.Exercise__tracked}>
+              <EarthIcon />
+              <h2>Посещенные сайты ({data.urls.length}):</h2>
+            </div>
             <ul className={styles.Exercise__items}>
               {data.urls.map((itm) => (
                 <li key={itm.id} className={styles.Exercise__item}>
@@ -171,10 +186,11 @@ const Exercise = () => {
                 </li>
               ))}
             </ul>
-          ) : (
-            <p>Нет посещенных сайтов</p>
-          )}
-        </div>
+            :
+          </div>
+        ) : (
+          <p>Нет посещенных сайтов</p>
+        )}
       </div>
       <div className={styles.Exercise__footer}>
         {data.exercise.status === TExerciseStatuses.NOT_STARTED && (

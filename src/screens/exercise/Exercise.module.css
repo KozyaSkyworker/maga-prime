@@ -26,6 +26,19 @@
     gap: 10px;
 }
 
+.Exercise__time {
+    display: flex;
+    align-items: center;    
+    gap: 8px;
+}
+
+.Exercise__status {
+    padding: 5px 7px;
+    border: 1px solid rgba(0 0 0 / .3);
+    border-radius: var(--border-radius);
+    font-weight: 500;
+}
+
 .Exercise__medium {
     font-weight: 500;
 }
@@ -61,4 +74,10 @@
 
 .Exercise__siteData{
     width: 100%;
+}
+
+.Exercise__tracked{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
