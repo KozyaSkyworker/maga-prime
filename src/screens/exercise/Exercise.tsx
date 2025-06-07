@@ -14,6 +14,7 @@ import {
 } from "../../shared/types";
 import {
   BASE_BACK_URL,
+  getFormattedTimeDiff,
   useFetchData,
   useMutationRequest,
 } from "../../shared/lib";
@@ -26,6 +27,7 @@ import { useState } from "react";
 const PERCENT = 78;
 
 const Exercise = () => {
+  // TODO: ui + вынести логику по файликам с обработчиками
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -152,7 +154,7 @@ const Exercise = () => {
             <p className={styles["Exercise__time-spent"]}>
               {<ClockIcon />} Время в работе:
               <span className={styles.Exercise__medium}>
-                {data.exercise.time_spent}
+                {getFormattedTimeDiff(data.exercise.started_at)}
               </span>
             </p>
           )}

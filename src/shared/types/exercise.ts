@@ -30,6 +30,6 @@ export type TExerciseRequest = {
   user_id: number;
 };
 
-export type TExerciseUpdateRequest = {
-  status: TExerciseStatus;
-};
+export type TExerciseUpdateRequest = Partial<
+  Omit<TExerciseDto, "id" | "created_at" | "user_id">
+>;

@@ -10,6 +10,7 @@ import { Button } from "../../shared/ui";
 
 import { ExerciseCardTitle } from "./ExerciseCardTitle";
 import styles from "./ExerciseCard.module.css";
+import { getFormattedTimeDiff } from "../../shared/lib";
 
 interface Props extends TExerciseDto {
   className?: string;
@@ -22,7 +23,7 @@ export const ExerciseCard: FC<Props> = ({
   id,
   name,
   created_at,
-  time_spent,
+  started_at,
 }) => {
   const navigate = useNavigate();
 
@@ -47,7 +48,9 @@ export const ExerciseCard: FC<Props> = ({
           </span>
           {STRING_DIVIDER}
           <span className={styles.ExerciseCard__items}>
-            {time_spent || "Время не отмечено"}
+            {started_at
+              ? getFormattedTimeDiff(started_at)
+              : "Время не отмечено"}
           </span>
         </p>
         <DeleteExercise id={id} />
