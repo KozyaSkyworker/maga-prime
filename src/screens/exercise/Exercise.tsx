@@ -94,7 +94,7 @@ const Exercise = () => {
                     <CheckIcon />
                   </div>
                   <div className={styles.Exercise__siteData}>
-                    <strong>{itm.url}</strong>
+                    <strong>{itm.origin}</strong>
                     <p>{itm.title}</p>
                   </div>
                 </li>

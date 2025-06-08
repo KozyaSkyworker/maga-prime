@@ -47,7 +47,8 @@ window.addEventListener("visibilitychange", (event) => {
 
 chrome.storage.local.get("exerciseId", ({ exerciseId }) => {
   const values = {
-    url: window.location.origin,
+    origin: window.location.origin,
+    href: window.location.href,
     title: document.title,
     visited_at: Date.now(),
     exercise_id: exerciseId,

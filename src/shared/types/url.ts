@@ -1,6 +1,7 @@
 export type TUrlDto = {
   id: number;
-  url: string;
+  origin: string;
+  href: string;
   title: string;
   exercise_id: number;
   visits_count?: number;

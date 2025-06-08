@@ -52,12 +52,12 @@ const Report = () => {
         <div className={classNames(styles.Report__chartWrapper, styles.column)}>
           <h2>Количество посещений веб-сайтов</h2>
           <div>
-            {/* TODO: копировать FULL линку на клик */}
+            {/* TODO: копировать FULL линку (HREF) на клик */}
             <Bar
               height={CHART_UI.height}
               options={COUNT_VISITS_OPTIONS}
               data={{
-                labels: data.urls.map((itm) => itm.url),
+                labels: data.urls.map((itm) => itm.origin),
                 datasets: [
                   {
                     data: data.urls.map((itm) => itm.visits_count),
