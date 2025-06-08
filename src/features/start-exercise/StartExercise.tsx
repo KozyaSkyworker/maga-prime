@@ -16,9 +16,9 @@ export const StartExercise = ({ id }: { id: number }) => {
   });
 
   const handleStartListening = (exerciseId: number) => {
-    mutationRequest({ status: TExerciseStatuses.PROCESS }).then(() =>
-      window.location.reload(),
-    );
+    // mutationRequest({ status: TExerciseStatuses.PROCESS }).then(() =>
+    //   window.location.reload(),
+    // );
 
     // @ts-expect-error разбераюсь
     chrome.runtime.sendMessage(

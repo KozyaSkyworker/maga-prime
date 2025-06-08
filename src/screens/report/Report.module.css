@@ -1,0 +1,19 @@
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.Report{
+    gap: 20px;
+}
+
+.Report__content{
+    gap: 13px;
+}
+
+.Report__chartWrapper{
+    gap: 7px;
+}
+.Report__chartWrapper h2{
+    text-align: center;
+}

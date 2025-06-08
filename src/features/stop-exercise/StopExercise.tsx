@@ -22,22 +22,25 @@ export const StopExercise = ({
   });
 
   const handleStopListening = (exerciseId: number) => {
-    mutationRequest({ status: TExerciseStatuses.FINISHED }).then(() =>
-      window.location.reload(),
-    );
+    // mutationRequest({ status: TExerciseStatuses.FINISHED }).then(() =>
+    //   window.location.reload(),
+    // );
 
     // @ts-expect-error разбераюсь
     chrome.runtime.sendMessage(
       { action: "stopListening", exerciseId },
       (response: { status: string; exerciseId: number }) => {
         if (response.status === "stopped") {
-          handleStopExerciseAndClassificate();
+          // handleStopExerciseAndClassificate();
+          mutationRequest({ status: TExerciseStatuses.FINISHED });
         }
       },
     );
   };
 
   // TODO: hook maybe ???
+  // @ts-expect-error iKnow
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async function handleStopExerciseAndClassificate() {
     setIsClassificationPending(true);
 
@@ -68,6 +71,7 @@ export const StopExercise = ({
 
     // TODO: hook на fetch
     //  TODO: fix
+    // @ts-expect-error iKnow
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const res = await fetch(`${BASE_BACK_URL}/urls/${id}`, {
       method: "PATCH",

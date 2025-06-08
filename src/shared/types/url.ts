@@ -3,4 +3,5 @@ export type TUrlDto = {
   url: string;
   title: string;
   exercise_id: number;
+  visits_count?: number;
 };
