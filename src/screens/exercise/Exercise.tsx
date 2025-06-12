@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
-import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 import { ReactComponent as EarthIcon } from "../../assets/icons/earth.svg";
 
 import { DeleteExercise } from "../../features/delete-exercise";
@@ -22,6 +21,7 @@ import {
 import { Button, Divider, Progress } from "../../shared/ui";
 import { ROUTES } from "../../shared/routes";
 
+import { ExerciseURLItem } from "./ExerciseURLItem";
 import styles from "./Exercise.module.css";
 
 const Exercise = () => {
@@ -87,21 +87,7 @@ const Exercise = () => {
             </div>
             <ul className={styles.Exercise__items}>
               {data.urls.map((itm) => (
-                <li key={itm.id} className={styles.Exercise__item}>
-                  <div className={styles.Exercise__svgWrapper}>
-                    <CheckIcon
-                      className={
-                        styles[
-                          `Exercise__svgCheck-${itm.is_relevant ? "relevant" : "unrelevant"}`
-                        ]
-                      }
-                    />
-                  </div>
-                  <div className={styles.Exercise__siteData}>
-                    <strong>{itm.origin}</strong>
-                    <p>{itm.title}</p>
-                  </div>
-                </li>
+                <ExerciseURLItem {...itm} />
               ))}
             </ul>
           </div>

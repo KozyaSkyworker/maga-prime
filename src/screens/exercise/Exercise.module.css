@@ -81,10 +81,15 @@
 
 .Exercise__siteData{
     width: 100%;
+    cursor: pointer;
 }
 
 .Exercise__tracked{
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.Exercise__siteDescription{
+    border-top: 1px dashed var(--border-color);
 }
