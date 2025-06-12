@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ReactComponent as ClockIcon } from "../../assets/icons/clock.svg";
@@ -16,6 +15,7 @@ import {
 } from "../../shared/types";
 import {
   BASE_BACK_URL,
+  calculatePercent,
   getFormattedTimeDiff,
   useFetchData,
 } from "../../shared/lib";
@@ -24,13 +24,9 @@ import { ROUTES } from "../../shared/routes";
 
 import styles from "./Exercise.module.css";
 
-const PERCENT = 78;
-
 const Exercise = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  const [isClassifacationPending, setIsClassificationPending] = useState(false);
 
   const { data, isLoading } = useFetchData<TExercise>({
     url: `${BASE_BACK_URL}/exercises/${id}`,
@@ -73,10 +69,12 @@ const Exercise = () => {
         </div>
         {data.exercise.status === TExerciseStatuses.FINISHED && (
           <>
-            <Progress percent={77} />
+            <Progress percent={calculatePercent(data.urls)} />
             <p>
               Процент релавнтных сайтов -
-              <span className={styles.Exercise__medium}> {PERCENT}% </span>
+              <span className={styles.Exercise__medium}>
+                {` ${calculatePercent(data.urls)}`}%
+              </span>
             </p>
           </>
         )}
@@ -91,7 +89,13 @@ const Exercise = () => {
               {data.urls.map((itm) => (
                 <li key={itm.id} className={styles.Exercise__item}>
                   <div className={styles.Exercise__svgWrapper}>
-                    <CheckIcon />
+                    <CheckIcon
+                      className={
+                        styles[
+                          `Exercise__svgCheck-${itm.is_relevant ? "relevant" : "unrelevant"}`
+                        ]
+                      }
+                    />
                   </div>
                   <div className={styles.Exercise__siteData}>
                     <strong>{itm.origin}</strong>
@@ -112,15 +116,15 @@ const Exercise = () => {
         {data.exercise.status === TExerciseStatuses.PROCESS && (
           <StopExercise
             id={data.exercise.id}
-            setIsClassificationPending={setIsClassificationPending}
+            name={data.exercise.name}
+            urls={data.urls}
           />
         )}
         {data.exercise.status === TExerciseStatuses.FINISHED && (
           <Button
-            text={isClassifacationPending ? "Обработка..." : "К полному отчету"}
+            text={"К полному отчету"}
             onClick={handleRedirectToReport}
             variant="info"
-            disabled={isClassifacationPending}
           />
         )}
       </div>

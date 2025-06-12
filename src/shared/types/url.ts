@@ -4,5 +4,7 @@ export type TUrlDto = {
   href: string;
   title: string;
   exercise_id: number;
+  is_relevant?: number;
+  description?: string;
   visits_count?: number;
 };

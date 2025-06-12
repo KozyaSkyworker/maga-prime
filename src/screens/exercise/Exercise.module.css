@@ -72,6 +72,13 @@
     width: 100%;
 }
 
+.Exercise__svgCheck-relevant{
+    fill: var(--color-new);
+}
+.Exercise__svgCheck-unrelevant{
+    fill: var(--color-error);
+}
+
 .Exercise__siteData{
     width: 100%;
 }
