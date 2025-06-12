@@ -18,7 +18,7 @@
     height: var(--height-card);
 }
 
-.ExerciseCard__title{
+.ExerciseCardTitle__title{
     display: -webkit-box;
     max-width: 260px;
     -webkit-line-clamp: 2;
@@ -43,9 +43,5 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.ExerciseCardTitle__input {
-    max-width: 260px;
 }
 

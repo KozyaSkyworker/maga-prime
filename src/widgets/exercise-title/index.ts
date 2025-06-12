@@ -1,0 +1,1 @@
+export { ExerciseTitle } from "./ExerciseTitle";

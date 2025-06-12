@@ -18,6 +18,7 @@
 
 .Exercise__title {
     word-break: break-word;
+     max-width: 340px;
 }
 
 .Exercise__content {

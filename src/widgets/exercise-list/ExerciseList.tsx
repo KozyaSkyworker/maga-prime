@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import { TExerciseDto } from "../../shared/types";
 
-import { ExerciseCard } from "../exercise-card/ExerciseCard";
+import { ExerciseCard } from "../exercise-card";
 
 import styles from "./ExerciseLIst.module.css";
 

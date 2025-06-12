@@ -7,6 +7,8 @@ import { DeleteExercise } from "../../features/delete-exercise";
 import { StartExercise } from "../../features/start-exercise";
 import { StopExercise } from "../../features/stop-exercise";
 
+import { ExerciseTitle } from "../../widgets/exercise-title";
+
 import {
   EXERCISE_STATUS_NAMES,
   TExercise,
@@ -47,7 +49,10 @@ const Exercise = () => {
   return (
     <div className={styles.Exercise}>
       <div className={styles.Exercise__top}>
-        <h1 className={styles.Exercise__title}>{data.exercise.name}</h1>
+        <ExerciseTitle
+          name={data.exercise.name}
+          className={styles.Exercise__title}
+        />
         <DeleteExercise id={data.exercise.id} redirectTo={ROUTES.HOME} />
       </div>
       <div className={styles.Exercise__content}>

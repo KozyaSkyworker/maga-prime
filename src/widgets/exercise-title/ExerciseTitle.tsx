@@ -1,10 +1,20 @@
 import { useState } from "react";
 
-import { Input } from "../../shared/ui";
+import { Input, Title, type TTitleVariant } from "../../shared/ui";
 
-import styles from "./ExerciseCard.module.css";
+import styles from "./ExerciseTitle.module.css";
 
-export const ExerciseCardTitle = ({ name }: { name: string }) => {
+interface Props {
+  name: string;
+  className?: string;
+  variant?: TTitleVariant;
+}
+
+export const ExerciseTitle = ({
+  name,
+  variant = "h1",
+  className = "",
+}: Props) => {
   const [isEditVisible, setIsSetEditVisible] = useState(false);
   const [localName, setLocalName] = useState(name);
 
@@ -27,18 +37,19 @@ export const ExerciseCardTitle = ({ name }: { name: string }) => {
 
   return isEditVisible ? (
     <Input
-      className={styles.ExerciseCardTitle__input}
+      className={styles.ExerciseTitle__input}
       onBlur={handleInputBlur}
       value={localName}
       onChange={(e) => setLocalName(e.target.value)}
       autoFocus
     />
   ) : (
-    <h2
-      className={styles.ExerciseCard__title}
+    <Title
+      variant={variant}
+      className={className}
       onDoubleClick={handleDoubleClick}
     >
       {localName}
-    </h2>
+    </Title>
   );
 };

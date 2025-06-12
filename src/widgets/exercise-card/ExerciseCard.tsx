@@ -4,13 +4,13 @@ import classNames from "classnames";
 
 import { DeleteExercise } from "../../features/delete-exercise";
 
+import { getFormattedTimeDiff } from "../../shared/lib";
 import { TExerciseDto } from "../../shared/types";
 import { ROUTES } from "../../shared/routes";
 import { Button } from "../../shared/ui";
 
-import { ExerciseCardTitle } from "./ExerciseCardTitle";
+import { ExerciseTitle } from "../exercise-title";
 import styles from "./ExerciseCard.module.css";
-import { getFormattedTimeDiff } from "../../shared/lib";
 
 interface Props extends TExerciseDto {
   className?: string;
@@ -32,12 +32,14 @@ export const ExerciseCard: FC<Props> = ({
     navigate(`${ROUTES.EXERCISES}/${id}`);
   };
 
-  // TODO: ui + вынести логику по файликам с обработчиками
-
   return (
     <div className={classNames(styles.ExerciseCard, className)}>
       <div className={styles.ExerciseCard__header}>
-        <ExerciseCardTitle name={name} />
+        <ExerciseTitle
+          name={name}
+          variant="h2"
+          className={styles.ExerciseCardTitle__title}
+        />
         <div>
           <Button text="Перейти" onClick={handleClickRedirectBtn} />
         </div>
