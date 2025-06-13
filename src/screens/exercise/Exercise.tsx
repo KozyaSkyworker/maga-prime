@@ -51,6 +51,7 @@ const Exercise = () => {
       <div className={styles.Exercise__top}>
         <ExerciseTitle
           name={data.exercise.name}
+          exerciseId={data.exercise.id}
           className={styles.Exercise__title}
         />
         <DeleteExercise id={data.exercise.id} redirectTo={ROUTES.HOME} />

@@ -37,6 +37,7 @@ export const ExerciseCard: FC<Props> = ({
       <div className={styles.ExerciseCard__header}>
         <ExerciseTitle
           name={name}
+          exerciseId={id}
           variant="h2"
           className={styles.ExerciseCardTitle__title}
         />
