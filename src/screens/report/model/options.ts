@@ -22,24 +22,10 @@ export const COUNT_VISITS_OPTIONS: ChartOptions<"bar"> = {
   },
 };
 
-export const TIME_SPENT_OPTIONS: ChartOptions<"bar"> = {
+export const TIME_SPENT_OPTIONS: ChartOptions<"pie"> = {
   plugins: {
     legend: {
       display: false,
-    },
-  },
-  scales: {
-    y: {
-      title: {
-        display: true,
-        text: "Время, мин.",
-      },
-    },
-    x: {
-      title: {
-        display: true,
-        text: "URLs",
-      },
     },
   },
 };

@@ -7,21 +7,24 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Pie } from "react-chartjs-2";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 import classNames from "classnames";
 
 import { BASE_BACK_URL, useFetchData } from "../../shared/lib";
+import { TExercise } from "../../shared/types";
 
 import { CHART_UI, COUNT_VISITS_OPTIONS, TIME_SPENT_OPTIONS } from "./model";
 
 import styles from "./Report.module.css";
-import { TExercise } from "../../shared/types";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
@@ -41,6 +44,19 @@ const Report = () => {
   if (!data) {
     return "Нед данных";
   }
+
+  const sitesRelevantCount: [number, number] = data.urls.reduce(
+    (acc, itm) => {
+      if (itm.is_relevant === 0) {
+        return [acc[0] + 1, acc[1]];
+      } else {
+        return [acc[0], acc[1] + 1];
+      }
+    },
+    [0, 0],
+  );
+
+  console.log(sitesRelevantCount);
 
   return (
     <div className={classNames(styles.Report, styles.column)}>
@@ -69,17 +85,24 @@ const Report = () => {
           </div>
         </div>
         <div className={classNames(styles.Report__chartWrapper, styles.column)}>
-          <h2>Время, проведенное на веб-сайтах</h2>
+          <h2>Соотношение релевантных веб-сайтов</h2>
           <div>
-            <Bar
+            <Pie
               height={CHART_UI.height}
               options={TIME_SPENT_OPTIONS}
+              plugins={[ChartDataLabels]}
               data={{
-                labels: ["Wikipedia", "Search", "ULSU"],
+                labels: ["Нет", "Да"],
                 datasets: [
                   {
-                    data: [27, 89, 5],
-                    backgroundColor: CHART_UI.backgroundColor,
+                    datalabels: {
+                      color: "#000",
+                      font: {
+                        size: 33,
+                      },
+                    },
+                    data: sitesRelevantCount,
+                    backgroundColor: ["rgba(255,0,0, .5", "rgba(0,255,0, .5)"],
                   },
                 ],
               }}
