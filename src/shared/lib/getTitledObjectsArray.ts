@@ -5,11 +5,9 @@ export const getTitledObjectsArray = (text: string, urls: TUrlDto[]) => {
     .split("\n")
     .slice(2)
     .map((item) => {
-      // Удаляем начальные символы '*   "' и разбиваем строку по разделителям
       // eslint-disable-next-line no-useless-escape
       const parts = item.replace(/^\*\s+\"/, "").split(/"\s+-\s+/);
 
-      // Разбиваем оставшуюся часть по первому вхождению ' - '
       const restParts = parts[1].split(/\s+-\s+/);
 
       return {

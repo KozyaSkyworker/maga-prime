@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check.svg";
 
-import { TUrlDto } from "../../shared/types";
+import { TExerciseDto, TExerciseStatuses, TUrlDto } from "../../shared/types";
 
 import styles from "./Exercise.module.css";
 
@@ -11,7 +11,8 @@ export const ExerciseURLItem = ({
   description,
   origin,
   title,
-}: TUrlDto) => {
+  status,
+}: TUrlDto & Pick<TExerciseDto, "status">) => {
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
 
   return (
@@ -20,7 +21,7 @@ export const ExerciseURLItem = ({
         <CheckIcon
           className={
             styles[
-              `Exercise__svgCheck-${is_relevant ? "relevant" : "unrelevant"}`
+              `${status === TExerciseStatuses.FINISHED && `Exercise__svgCheck-${is_relevant ? "relevant" : "unrelevant"}`}`
             ]
           }
         />

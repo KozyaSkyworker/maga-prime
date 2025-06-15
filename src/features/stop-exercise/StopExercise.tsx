@@ -34,7 +34,6 @@ export const StopExercise = ({
 
   const handleStopListening = (exerciseId: number) => {
     // mutationRequest({ status: TExerciseStatuses.FINISHED }).then(() =>
-    //   // window.location.reload(),
     //   handleStopExerciseAndClassificate(),
     // );
 
@@ -44,7 +43,6 @@ export const StopExercise = ({
       (response: { status: string; exerciseId: number }) => {
         if (response.status === "stopped") {
           handleStopExerciseAndClassificate();
-          // mutationRequest({ status: TExerciseStatuses.FINISHED });
         }
       },
     );
@@ -53,6 +51,10 @@ export const StopExercise = ({
   // TODO: hook maybe ???
   async function handleStopExerciseAndClassificate() {
     setIsClassificationPending(true);
+
+    const PROMT = `В ходе выполнения задания были посещены сайты со следующими заголовками: ${urls.map((itm) => `"${itm.title}"`).join(",")}. Ответь "да" или "нет" на каждый заголовок в зависимости от того соотносится ли заголовок с темой задания "${name}" и кратко обоснуй почему. Хочу видеть ответ в виде "заголовок - да или нет - обоснование"`;
+
+    // console.log(1, PROMT);
 
     // TODO: hook на fetch
     const [modelResponse] = await Promise.allSettled([
@@ -66,7 +68,7 @@ export const StopExercise = ({
           messages: [
             {
               role: "user",
-              content: `В ходе выполнения задания были посещены сайты со следующими заголовками: ${urls.map((itm) => `"${itm.title}"`).join(",")}. Ответь "да" или "нет" на каждый заголовок в зависимости от того соотносится ли заголовок с темой задания "${name}" и кратко обоснуй почему. Хочу видеть ответ в виде "заголовок - да или нет - обоснование"`,
+              content: PROMT,
             },
           ],
           stream: false,
@@ -79,26 +81,9 @@ export const StopExercise = ({
       modelResponse as { value: Response }
     ).value.json();
 
-    // console.log(text.message.content);
-
     const result = getTitledObjectsArray(text.message.content, urls);
 
-    // console.log(result);
-
-    // Вот ответы и обоснования:
-    //
-    // *   **Теория вероятности:** да - Заголовок напрямую относится к теме задания.
-    // *   **Базы данных:** нет - Базы данных - это инструмент, а не сама тема вероятности.
-    // *   **Котики:** нет - Это развлечение, никак не связанное с теорией вероятности.
-    // *   **YouTube:** нет - YouTube - это платформа для обмена видео, а не тема, связанная с теорией вероятности.
-
-    // Вот ответы и обоснования:
-    //
-    // * **Теория построения графов:** нет. Графы – полезный инструмент в ИИ, но не являются основной темой ИИ как таковой.
-    // * **ИИ:** да. Это напрямую связанная с темой.
-    // * **Искусственный интеллект:** да. Это синоним предыдущего, поэтому полностью соответствует теме.
-    // * **Котики:** нет. Котики не имеют прямого отношения к искусственному интеллекту.
-    // * **Собачки:** нет. Собаки также не являются темой, связанной с искусственным интеллектом, за исключением некоторых специализированных приложений (например, распознавание пород). Надеюсь, это понятно!
+    // console.log(2, result);
 
     // TODO: hook на fetch
     //  TODO: fix

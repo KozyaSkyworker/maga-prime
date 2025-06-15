@@ -93,7 +93,7 @@ const Exercise = () => {
             </div>
             <ul className={styles.Exercise__items}>
               {data.urls.map((itm) => (
-                <ExerciseURLItem {...itm} />
+                <ExerciseURLItem status={data.exercise.status} {...itm} />
               ))}
             </ul>
           </div>
